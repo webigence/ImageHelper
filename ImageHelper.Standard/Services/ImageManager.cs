@@ -9,13 +9,13 @@ namespace ImageHelper.Standard.Services
 {
     public class ImageManager : IImageManager
     {
-        public Stream ProcessExif(Stream image)
+        public Image ProcessExif(Image image)
         {
-            Image originalImage = Image.FromStream(image);
+            //Image originalImage = Image.FromStream(image);
 
-            if (originalImage.PropertyIdList.Contains(0x0112))
+            if (image.PropertyIdList.Contains(0x0112))
             {
-                int rotationValue = originalImage.GetPropertyItem(0x0112).Value[0];
+                int rotationValue = image.GetPropertyItem(0x0112).Value[0];
                 switch (rotationValue)
                 {
                     case 1: // landscape, do nothing
@@ -23,15 +23,15 @@ namespace ImageHelper.Standard.Services
 
                     case 8: // rotated 90 right
                             // de-rotate:
-                        originalImage.RotateFlip(rotateFlipType: RotateFlipType.Rotate270FlipNone);
+                        image.RotateFlip(rotateFlipType: RotateFlipType.Rotate270FlipNone);
                         break;
 
                     case 3: // bottoms up
-                        originalImage.RotateFlip(rotateFlipType: RotateFlipType.Rotate180FlipNone);
+                        image.RotateFlip(rotateFlipType: RotateFlipType.Rotate180FlipNone);
                         break;
 
                     case 6: // rotated 90 left
-                        originalImage.RotateFlip(rotateFlipType: RotateFlipType.Rotate90FlipNone);
+                        image.RotateFlip(rotateFlipType: RotateFlipType.Rotate90FlipNone);
                         break;
 
                     default: //no need to cater for other scenarios
@@ -39,13 +39,8 @@ namespace ImageHelper.Standard.Services
                 }
             }
 
-            var ms = new MemoryStream();
-            originalImage.Save(ms, originalImage.RawFormat);
 
-            // Reset the position to the start in case user wants to read it from the stream
-            ms.Position = 0;
-
-            return ms;
+            return image;
         }
 
         public bool IsMinimumSizeRequirementsMet(Stream stream, int width, int height)

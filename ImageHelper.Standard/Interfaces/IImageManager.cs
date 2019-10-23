@@ -1,10 +1,11 @@
-﻿using System.IO;
+﻿using System.Drawing;
+using System.IO;
 
 namespace ImageHelper.Standard.Interface
 {
     public interface IImageManager
     {
-        Stream ProcessExif(Stream image);
+        Image ProcessExif(Image image);
         bool IsMinimumSizeRequirementsMet(Stream stream, int width, int height);
     }
 }
