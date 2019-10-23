@@ -3,9 +3,9 @@ using System.IO;
 
 using System.Drawing;
 using System.Linq;
-using ImageHelper.Interface;
+using ImageHelper.Standard.Interface;
 
-namespace ImageHelper.Services
+namespace ImageHelper.Standard.Services
 {
     public class ImageManager : IImageManager
     {

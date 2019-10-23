@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Drawing;
-using System.IO;
-using System.Text;
+﻿using System.IO;
 
-namespace ImageHelper.Interface
+namespace ImageHelper.Standard.Interface
 {
     public interface IImageManager
     {
